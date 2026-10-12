@@ -24,7 +24,7 @@ function edgePaint(edge) {
   const cross = edge.isCross;
   if (layers.identify) {
     return { color: cross ? theme().cross : CLUSTER_COLORS[edge.source.cluster % CLUSTER_COLORS.length].main,
-      alpha: cross ? 0.5 : 0.35, width: cross ? 1.6 : 0.8 };
+      alpha: cross ? 0.6 : 0.45, width: cross ? 1.6 : 0.9 };
   }
   return { color: `rgb(${NEUTRAL.join(',')})`, alpha: (cross ? 0.16 : 0.11) * theme().edgeMul, width: 0.6 };
 }
@@ -166,7 +166,7 @@ function drawTreeView(anchors, blend, ease) {
   ctx.arc(rp.x, rp.y, 4, 0, Math.PI * 2);
   ctx.fillStyle = `rgba(${theme().fg.join(',')}, 0.8)`;
   ctx.fill();
-  ctx.font = '300 12px Plus Jakarta Sans, sans-serif';
+  ctx.font = '500 12.5px Inter, system-ui, sans-serif';
   ctx.fillStyle = `rgba(${theme().fg.join(',')}, 0.9)`;
   ctx.textBaseline = 'middle';
   ctx.fillText('all data', rp.x - TREE_DIR * 12 - (TREE_DIR < 0 ? 0 : 44), rp.y);

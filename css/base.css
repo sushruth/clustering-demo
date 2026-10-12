@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 :root {
   color-scheme: dark light;
   --bg: #0c0e14;
   --fg: 235, 238, 245;
   --neutral: 214, 222, 238;
   --text: rgba(var(--fg), 0.92);
-  --muted: rgba(var(--fg), 0.45);
-  --faint: rgba(var(--fg), 0.28);
-  --hair: rgba(var(--fg), 0.14);
-  --tip: rgba(var(--fg), 0.2);
+  --muted: rgba(var(--fg), 0.7);
+  --faint: rgba(var(--fg), 0.6);
+  --hair: rgba(var(--fg), 0.22);
+  --tip: rgba(var(--fg), 0.5);
+  --track: rgba(var(--fg), 0.2);
   --h1: #7dd3fc;
   --h2: #6ee7b7;
   --h3: #a5b4fc;
@@ -23,43 +25,44 @@
   --env0: 0.16;
   --env1: 0.07;
   --edge-mul: 1;
-  --term-op: .38;
-  --num-op: .55;
-  --font: 'Plus Jakarta Sans', sans-serif;
+  --term-op: .72;
+  --num-op: .85;
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --mono: 'JetBrains Mono', monospace;
 }
 @media (prefers-color-scheme: light) {
   :root {
     --bg: #fafaf7;
-    --fg: 28, 30, 38;
-    --neutral: 52, 58, 74;
-    --text: rgba(var(--fg), 0.88);
-    --muted: rgba(var(--fg), 0.62);
-    --faint: rgba(var(--fg), 0.5);
-    --hair: rgba(var(--fg), 0.22);
-    --tip: rgba(var(--fg), 0.42);
+    --fg: 20, 22, 30;
+    --neutral: 38, 44, 60;
+    --text: #14161e;
+    --muted: #4a4f5c;
+    --faint: #565b68;
+    --hair: rgba(var(--fg), 0.3);
+    --tip: #5a5f6c;
+    --track: rgba(var(--fg), 0.22);
     --h1: #0369a1;
     --h2: #047857;
     --h3: #4338ca;
     --h4: #be123c;
-    --h5: #a16207;
+    --h5: #92520a;
     --h6: #7e22ce;
     --h7: #0369a1;
     --h8: #be185d;
-    --h9: #a16207;
+    --h9: #92520a;
     --h10: #0e7490;
     --cross: #e11d48;
     --outlier: 202, 138, 4;
     --env0: 0.2;
     --env1: 0.09;
-    --edge-mul: 2.2;
-    --term-op: .72;
-    --num-op: .9;
+    --edge-mul: 3.4;
+    --term-op: .95;
+    --num-op: 1;
   }
 }
-html, body { background: var(--bg); color: var(--text); font-family: var(--font); margin: 0; height: 100%; overflow: hidden; }
+html, body { background: var(--bg); color: var(--text); font-family: var(--font); font-feature-settings: 'cv11','ss03'; -webkit-font-smoothing: antialiased; margin: 0; height: 100%; overflow: hidden; }
 body { background: var(--bg) !important; }
-.mono { font-family: var(--mono); }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 * { outline: none; }
 ::-webkit-scrollbar { width: 0; height: 0; }
 .c1 { color: var(--h1); } .c2 { color: var(--h2); } .c3 { color: var(--h3); } .c4 { color: var(--h4); }
