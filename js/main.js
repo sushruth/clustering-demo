@@ -8,6 +8,7 @@ function animationLoop() {
   } else {
     treeLast = performance.now();
   }
+  elbowTick();
   requestAnimationFrame(animationLoop);
 }
 

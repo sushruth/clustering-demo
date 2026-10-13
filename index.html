@@ -37,8 +37,8 @@
         <div class="sliders">
           <div class="ctl c1" data-for="cohesion"><div class="row"><span class="lbl2">Cohesion</span><span id="val-cohesion" class="mono val">75%</span></div><input id="slider-cohesion" type="range" min="10" max="150" value="75"></div>
           <div class="ctl c2" data-for="separation"><div class="row"><span class="lbl2">Separation</span><span id="val-separation" class="mono val">180px</span></div><input id="slider-separation" type="range" min="40" max="360" value="180"></div>
-          <div class="ctl c4" data-for="coupling"><div class="row"><span class="lbl2">Coupling</span><span id="val-coupling" class="mono val">3 edges</span></div><input id="slider-coupling" type="range" min="0" max="25" value="3"></div>
-          <div class="ctl c3" data-for="k"><div class="row"><span class="lbl2">Clusters (K)</span><span id="val-clusters" class="mono val">3 groups</span></div><input id="slider-clusters" type="range" min="2" max="5" value="3"></div>
+          <div class="ctl c4" data-for="coupling"><div class="row"><span class="lbl2">Coupling</span><span id="val-coupling" class="mono val">3 edges</span></div><input id="slider-coupling" type="range" min="0" max="150" value="3"></div>
+          <div class="ctl c3" data-for="k"><div class="row"><span class="lbl2">Clusters (K)</span><span id="val-clusters" class="mono val">3 groups</span></div><input id="slider-clusters" type="range" min="2" max="8" value="3"></div>
           <div class="ctl c5" data-for="epsilon"><div class="row"><span class="lbl2">Reachability &epsilon;</span><span id="val-epsilon" class="mono val">45px</span></div><input id="slider-epsilon" type="range" min="20" max="100" value="45"></div>
         </div>
         <button class="txt reset" onclick="resetSliders()">Reset defaults</button>
@@ -49,7 +49,13 @@
         <button id="btn-identify" class="txt" onclick="toggleIdentify()">Identify clusters</button>
         <button class="txt" onclick="reseedGraph()">Reseed</button>
         <button class="txt" onclick="addRandomOutlier()">+ Outlier</button>
+        <button id="btn-elbow" class="txt" onclick="toggleElbow()">Elbow</button>
       </div>
+
+      <section id="elbow" class="elbow" hidden>
+        <canvas id="elbowCanvas"></canvas>
+        <p id="elbow-hint" class="hint">Adding clusters stops helping fast here.</p>
+      </section>
     </aside>
   </main>
 
@@ -69,6 +75,7 @@
   <script src="js/terms.js"></script>
   <script src="js/hud.js"></script>
   <script src="js/controls.js"></script>
+  <script src="js/elbow.js"></script>
   <script src="js/presets.js"></script>
   <script src="js/main.js"></script>
 </body>

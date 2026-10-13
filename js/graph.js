@@ -118,17 +118,16 @@ function applyCouplingEdges(targetCrossCount) {
       if (nodes[i].cluster !== nodes[j].cluster) pairs.push({ s: nodes[i], t: nodes[j], d: dist(nodes[i], nodes[j]) });
     }
   }
-  pairs.sort((a, b) => a.d - b.d);
-  const pool = pairs.slice(0, Math.max(targetCrossCount * 3, 8));
-  pool.sort(() => Math.random() - 0.5);
-  pool.slice(0, targetCrossCount).forEach(p => edges.push({ source: p.s, target: p.t, isCross: true }));
+  for (let i = pairs.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+  }
+  pairs.slice(0, targetCrossCount).forEach(p => edges.push({ source: p.s, target: p.t, isCross: true }));
 }
 
-function recluster(k) {
-  params.k = k;
-  autoSample = null;
-  if (nodes.length === 0) return;
-  k = Math.min(k, nodes.length);
+function kmeansFit(k) {
+  const ordered = nodes.slice().sort((a, b) => a.id - b.id);
+  k = Math.max(1, Math.min(k, ordered.length));
   let seed = 1337 + k * 7919;
   const rand = () => {
     seed = (seed + 0x6D2B79F5) | 0;
@@ -142,7 +141,6 @@ function recluster(k) {
     return { i: bi, d: bd };
   };
 
-  const ordered = nodes.slice().sort((a, b) => a.id - b.id);
   let centers = [{ x: ordered[Math.floor(rand() * ordered.length)].x, y: 0 }];
   centers[0].y = ordered.find(n => n.x === centers[0].x).y;
   while (centers.length < k) {
@@ -174,7 +172,18 @@ function recluster(k) {
 
   const rank = centers.map((c, i) => i).sort((a, b) => centers[a].x - centers[b].x || centers[a].y - centers[b].y);
   const label = new Map(rank.map((ci, r) => [ci, r]));
-  ordered.forEach((n, i) => { n.cluster = label.get(assign[i]); });
+  const labels = assign.map(a => label.get(a));
+  let sse = 0;
+  ordered.forEach((n, i) => { sse += distSq(n, centers[assign[i]]); });
+  return { ordered, labels, sse };
+}
+
+function recluster(k) {
+  params.k = k;
+  autoSample = null;
+  if (nodes.length === 0) return;
+  const { ordered, labels } = kmeansFit(k);
+  ordered.forEach((n, i) => { n.cluster = labels[i]; });
   edges.forEach(e => { e.isCross = e.source.cluster !== e.target.cluster; });
   markDirty();
 }
