@@ -59,7 +59,7 @@ function drawElbow() {
   c.textBaseline = 'alphabetic';
   c.fillStyle = fg(0.6);
   c.textAlign = 'left';
-  c.fillText('inertia', 0, 12);
+  c.fillText(label('elbowY'), 0, 12);
 
   c.strokeStyle = line;
   c.lineWidth = 1.25;
@@ -94,8 +94,8 @@ function drawElbow() {
     c.fillText(`elbow · K=${elbowK}`, Math.min(d.x + 12, W - 88), d.y - 12);
   }
   document.getElementById('elbow-hint').textContent = elbowK
-    ? 'Adding clusters stops helping fast here.'
-    : 'No clear elbow here: the curve is close to a straight line.';
+    ? label('elbowHint')
+    : label('elbowFlat');
 }
 
 function elbowTick(force) {
@@ -115,9 +115,7 @@ function elbowTick(force) {
 
 function toggleElbow() {
   elbowOn = !elbowOn;
-  const b = document.getElementById('btn-elbow');
-  b.textContent = elbowOn ? 'Elbow on' : 'Elbow';
-  b.classList.toggle('lit', elbowOn);
+  refreshToggleLabels();
   document.getElementById('elbow').hidden = !elbowOn;
   elbowTick(true);
 }

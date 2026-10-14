@@ -58,3 +58,16 @@ input[type=range]::-moz-range-progress { height: 2px; background: currentColor; 
 .elbow .hint { margin: 8px 0 0; font-size: 12.5px; color: var(--faint); }
 .actions { flex-wrap: wrap; gap: 6px 14px; }
 .actions button.txt { white-space: nowrap; }
+
+.mode { position: fixed; top: 14px; right: 14px; z-index: 10; display: inline-flex; padding: 2px; border: 1px solid var(--hair); border-radius: 999px; }
+.mode button { background: none; border: 0; border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 12.5px; font-weight: 500; color: var(--faint); cursor: pointer; transition: color .2s, background-color .2s; }
+.mode button:hover { color: var(--text); }
+.mode button[aria-pressed="true"] { color: var(--text); background: rgba(var(--fg), 0.12); }
+.def .head { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.def .head h1 { margin: 0; }
+.badge { font-size: 11.5px; font-weight: 500; color: var(--muted); border: 1px solid var(--hair); border-radius: 999px; padding: 2px 9px; line-height: 1.5; }
+.badge:empty { display: none; }
+#term-code { font-size: 14px; line-height: 1.5; color: var(--muted); margin-top: 10px; }
+#term-code:empty { display: none; }
+.cap { display: block; font-size: 11.5px; color: var(--faint); margin-top: 2px; }
+.cap:empty { display: none; }

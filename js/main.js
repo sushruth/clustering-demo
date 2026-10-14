@@ -18,6 +18,7 @@ window.addEventListener('resize', () => {
 });
 
 window.onload = function() {
+  applyMode();
   resizeCanvas();
   buildGraph(params.k);
   animationLoop();

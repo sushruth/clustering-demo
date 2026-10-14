@@ -10,51 +10,57 @@
 </head>
 <body class="antialiased select-none">
 
+  <div class="mode" role="group" aria-label="Mode">
+    <button type="button" data-mode-btn="clustering" aria-pressed="true">Clustering</button>
+    <button type="button" data-mode-btn="chaos" aria-pressed="false">Chaos</button>
+  </div>
+
   <main class="stage">
     <div class="canvas-wrap">
       <canvas id="clusterCanvas" class="cursor-grab active:cursor-grabbing"></canvas>
-      <p class="tip">Drag a node.</p>
+      <p class="tip" data-label="tip">Drag a node.</p>
     </div>
 
     <aside class="side">
       <nav id="terms" class="terms"></nav>
 
       <section class="def">
-        <h1 id="term-name"></h1>
+        <div class="head"><h1 id="term-name"></h1><span id="term-status" class="badge"></span></div>
         <p id="term-text"></p>
+        <p id="term-code" class="code-line"></p>
         <p id="term-num" class="mono"></p>
       </section>
 
       <nav class="presets">
-        <button class="txt" onclick="loadPreset('wellSeparated')">Ideal Isolated</button>
-        <button class="txt" onclick="loadPreset('highCoupling')">High Coupling</button>
-        <button class="txt" onclick="loadPreset('diffuse')">Overlapping</button>
-        <button class="txt" onclick="loadPreset('outlierSkew')">Outlier Skew</button>
-        <button class="txt" onclick="loadPreset('densityChains')">Density Chains</button>
+        <button class="txt" data-label="presetIdeal" onclick="loadPreset('wellSeparated')">Ideal Isolated</button>
+        <button class="txt" data-label="presetTangled" onclick="loadPreset('highCoupling')">High Coupling</button>
+        <button class="txt" data-label="presetOverlap" onclick="loadPreset('diffuse')">Overlapping</button>
+        <button class="txt" data-label="presetOutlier" onclick="loadPreset('outlierSkew')">Outlier Skew</button>
+        <button class="txt" data-label="presetChains" onclick="loadPreset('densityChains')">Density Chains</button>
       </nav>
 
       <section class="play">
         <div class="sliders">
-          <div class="ctl c1" data-for="cohesion"><div class="row"><span class="lbl2">Cohesion</span><span id="val-cohesion" class="mono val">75%</span></div><input id="slider-cohesion" type="range" min="10" max="150" value="75"></div>
-          <div class="ctl c2" data-for="separation"><div class="row"><span class="lbl2">Separation</span><span id="val-separation" class="mono val">180px</span></div><input id="slider-separation" type="range" min="40" max="360" value="180"></div>
-          <div class="ctl c4" data-for="coupling"><div class="row"><span class="lbl2">Coupling</span><span id="val-coupling" class="mono val">3 edges</span></div><input id="slider-coupling" type="range" min="0" max="150" value="3"></div>
-          <div class="ctl c3" data-for="k"><div class="row"><span class="lbl2">Clusters (K)</span><span id="val-clusters" class="mono val">3 groups</span></div><input id="slider-clusters" type="range" min="2" max="8" value="3"></div>
-          <div class="ctl c5" data-for="epsilon"><div class="row"><span class="lbl2">Reachability &epsilon;</span><span id="val-epsilon" class="mono val">45px</span></div><input id="slider-epsilon" type="range" min="20" max="100" value="45"></div>
+          <div class="ctl c1" data-for="cohesion"><div class="row"><span class="lbl2" data-label="sCohesion">Cohesion</span><span id="val-cohesion" class="mono val">75%</span></div><span class="cap" data-label="capCohesion"></span><input id="slider-cohesion" type="range" min="10" max="150" value="75"></div>
+          <div class="ctl c2" data-for="separation"><div class="row"><span class="lbl2" data-label="sSeparation">Separation</span><span id="val-separation" class="mono val">180px</span></div><span class="cap" data-label="capSeparation"></span><input id="slider-separation" type="range" min="40" max="360" value="180"></div>
+          <div class="ctl c4" data-for="coupling"><div class="row"><span class="lbl2" data-label="sCoupling">Coupling</span><span id="val-coupling" class="mono val">3 edges</span></div><span class="cap" data-label="capCoupling"></span><input id="slider-coupling" type="range" min="0" max="150" value="3"></div>
+          <div class="ctl c3" data-for="k"><div class="row"><span class="lbl2" data-label="sK">Clusters (K)</span><span id="val-clusters" class="mono val">3 groups</span></div><span class="cap" data-label="capK"></span><input id="slider-clusters" type="range" min="2" max="8" value="3"></div>
+          <div class="ctl c5" data-for="epsilon"><div class="row"><span class="lbl2" data-label="sEpsilon">Reachability &epsilon;</span><span id="val-epsilon" class="mono val">45px</span></div><span class="cap" data-label="capEpsilon"></span><input id="slider-epsilon" type="range" min="20" max="100" value="45"></div>
         </div>
-        <button class="txt reset" onclick="resetSliders()">Reset defaults</button>
+        <button class="txt reset" data-label="reset" onclick="resetSliders()">Reset defaults</button>
       </section>
 
       <div class="actions">
         <button id="btn-tree" class="txt" onclick="toggleTree()">Tree view</button>
         <button id="btn-identify" class="txt" onclick="toggleIdentify()">Identify clusters</button>
-        <button class="txt" onclick="reseedGraph()">Reseed</button>
-        <button class="txt" onclick="addRandomOutlier()">+ Outlier</button>
+        <button class="txt" data-label="reseed" onclick="reseedGraph()">Reseed</button>
+        <button class="txt" data-label="outlier" onclick="addRandomOutlier()">+ Outlier</button>
         <button id="btn-elbow" class="txt" onclick="toggleElbow()">Elbow</button>
       </div>
 
       <section id="elbow" class="elbow" hidden>
         <canvas id="elbowCanvas"></canvas>
-        <p id="elbow-hint" class="hint">Adding clusters stops helping fast here.</p>
+        <p id="elbow-hint" class="hint" data-label="elbowHint">Adding clusters stops helping fast here.</p>
       </section>
     </aside>
   </main>
@@ -72,6 +78,7 @@
   <script src="js/physics.js"></script>
   <script src="js/render.js"></script>
   <script src="js/canvas.js"></script>
+  <script src="js/modes.js"></script>
   <script src="js/terms.js"></script>
   <script src="js/hud.js"></script>
   <script src="js/controls.js"></script>

@@ -84,16 +84,12 @@ function setSliderValue(id, valId, val, unit) {
 
 function toggleTree() {
   layers.treeView = !layers.treeView;
-  const b = document.getElementById('btn-tree');
-  b.textContent = layers.treeView ? 'Tree view on' : 'Tree view';
-  b.classList.toggle('lit', layers.treeView);
+  refreshToggleLabels();
   markDirty();
 }
 
 function toggleIdentify() {
   layers.identify = !layers.identify;
-  const b = document.getElementById('btn-identify');
-  b.textContent = layers.identify ? 'Identify clusters on' : 'Identify clusters';
-  b.classList.toggle('lit', layers.identify);
+  refreshToggleLabels();
   markDirty();
 }
